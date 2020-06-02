@@ -1,10 +1,47 @@
-pipeline {
-    agent { docker { image 'python:3.5.1' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'python --version'
-            }
-        }
-    }
+pipeline{
+	agent any{
+		stages{
+			stage('One'){
+				steps{
+					echo "Hi from Javad"
+				     }
+			}
+			stage('Two'){
+				steps{
+					input('Do you want to proceed?')
+				}
+			}
+			stage('Three'){
+				when{
+				    not {
+					    branch "master"
+					}
+                                    }				    
+                                steps{
+				     echo('Stage Three')
+				     }
+			}
+			stage('Four'){
+				parallel{
+					stage('Unit test'){
+						steps{
+						     echo 'Running the Unit test'
+						}
+                                             }
+					stage('Integration test'){
+						agent{
+						    docker{
+							reuseNode false
+							image 'ubuntu'
+							}
+						     }
+						steps {
+							echo 'Running Integration test'
+						      }
+                                                    }
+				     } 
+			       	}
+    		}
+	}
 }
+
