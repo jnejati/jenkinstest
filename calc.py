@@ -6,5 +6,6 @@ def calct_area(r):
 
 def calc_divide(a, b):
     if b == 0:
-	raise ValueError('Division by Zero)
+	raise ValueError('Division by Zero')
     return a/b
+
