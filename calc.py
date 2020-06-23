@@ -9,3 +9,5 @@ def calc_divide(a, b):
 	raise ValueError('Division by Zero')
     return a/b
 
+def subtract(a, b):
+    return a - b
